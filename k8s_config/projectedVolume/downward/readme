@@ -1,0 +1,29 @@
+执行 k apply -f downward.yaml
+
+通过这样的 Downward API Volume 声明方式，当前 Pod 的 Labels 字段的值，就会被 Kubernetes 自动挂载成为容器里的/etc/podinfo/labels 文件。
+
+目前，Downward API 支持的字段已经非常丰富了，比如：
+
+```
+1. 使用fieldRef可以声明使用:
+spec.nodeName - 宿主机名字
+status.hostIP - 宿主机IP
+metadata.name - Pod的名字
+metadata.namespace - Pod的Namespace
+status.podIP - Pod的IP
+spec.serviceAccountName - Pod的Service Account的名字
+metadata.uid - Pod的UID
+metadata.labels['<KEY>'] - 指定<KEY>的Label值
+metadata.annotations['<KEY>'] - 指定<KEY>的Annotation值
+metadata.labels - Pod的所有Label
+metadata.annotations - Pod的所有Annotation
+
+2. 使用resourceFieldRef可以声明使用:
+容器的CPU limit
+容器的CPU request
+容器的memory limit
+容器的memory request
+```
+
+需要注意的是，Downward API 能够获取到的信息，**一定是 Pod 里的容器进程启动之前就能够确定下来的信息**。而如果你想要获取 Pod 容器运行后才会出现的信息，比如，容器进程的 PID，那就肯定不能使用 Downward API 了，而应该考虑在 Pod 里定义一个 sidecar 容器。
+
