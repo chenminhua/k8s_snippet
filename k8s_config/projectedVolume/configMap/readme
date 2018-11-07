@@ -1,0 +1,6 @@
+
+# 从.properties文件创建ConfigMap
+$ kubectl create configmap ui-config --from-file=example/ui.properties
+
+# 查看这个ConfigMap里保存的信息(data)
+$ kubectl get configmaps ui-config -o yaml
