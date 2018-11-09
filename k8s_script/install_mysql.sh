@@ -22,3 +22,15 @@ service mysqld restart
 # 开启binlog
 log-bin=/var/lib/mysql/mysql-bin
 server-id=1
+
+
+
+## schema同步与比较
+http://seanlook.com/2017/11/02/mysql_schemasync/
+https://github.com/mmatuson/SchemaSync
+
+## 执行sql脚本
+mysql -D db_name -u username -p < example.sql
+
+
+
