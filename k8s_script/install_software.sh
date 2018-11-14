@@ -14,7 +14,7 @@ yum install python-pip -y
 
 yum install -y yum-utils device-mapper-persistent-data lvm2
 yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-yum install docker-ce -y
+yum install docker-ce-18.06.0.ce -y
 systemctl enable docker
 systemctl start docker
 
