@@ -1,10 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: simpleservice
+  name: hostnames
 spec:
-  ports:
-    - port: 80
-      targetPort: 9876
   selector:
-    app: sise
+    app: hostnames
+  ports:
+  - name: default
+    protocol: TCP
+    port: 80
+    targetPort: 9376
