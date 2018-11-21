@@ -119,4 +119,3 @@ IPVS模式的工作原理，其实跟iptables模式类似。当我们创建了�
 需要注意的是，在Kubernetes里，/etc/hosts文件是单独挂载的，这也是为什么kubelet能够对hostname进行修改并且Pod重建后依然有效的原因。这跟Docker的Init层是一个原理。
 
 
-s
