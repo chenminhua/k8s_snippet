@@ -1,4 +1,5 @@
 #!/bin/bash
+# 此脚本用于在azure上创建三台在同一个子网中的虚拟机
 az group create --name ata-op --location southeastasia
 
 az network vnet create -g ata-op -n opvnet --address-prefix 10.0.0.0/24
