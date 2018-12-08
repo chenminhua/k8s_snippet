@@ -23,6 +23,12 @@ service mysqld restart
 log-bin=/var/lib/mysql/mysql-bin
 server-id=1
 
+# 修改datadir
+cp -r /var/lib/mysql /data
+chown -R mysql:mysql /data/mysql
+vi /etc/my.cnf   修改 datadir和socket配置
+setenforce 0
+service mysqld restart
 
 
 ## schema同步与比较
