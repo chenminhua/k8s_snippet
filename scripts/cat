@@ -1,0 +1,15 @@
+1. 安装java, maven(版本稍微高一点)
+
+2. 下载源码
+
+3. 拷贝包
+gco mvn-repo
+cp -r org/unidal/ ~/.m2/repository/org
+
+4. 编译打包
+mvn cat:install
+
+5. 打包如果有问题，可以直接去下载
+wget http://cat.meituan.com/nexus/service/local/repositories/releases/content/com/dianping/cat/cat-home/3.0.0/cat-home-3.0.0.war
+或者参考cat github上的方式，修改maven配置
+
