@@ -1,5 +1,8 @@
 ## redo log
 
+默认在事务提交时，将 redo log 缓冲写入 redo log 文件，并调用 fsync 操作。
+参数 innodb_flush_log_at_trx_commit 用来控制是否每次都在提交时写入文件。
+
 WAL，先写日志并更新内存，再写磁盘。将随机写变为顺序写。
 
 InnoDB 的 redo log 是固定大小的，比如可以配置为一组 4 个文件，每个文件的大小是 1GB，那么总共就可以记录 4GB 的操作。redo log 给 Mysql 提供了 crash-safe 的能力。
@@ -115,3 +118,7 @@ i、远程提取使用 row 格式的 binlog 日志并输出到本地文件
 mysqlbinlog -urobin -p -P3606 -h192.168.1.177 --read-from-remote-server -vv inst3606bin.000005 >row.sql
 
 ## undo log
+
+undo log 保证了事务的一致。
+undo log 存放数据修改前的值。
+undo log 随机写，帮助事务的回滚以及 mvcc 的功能。
