@@ -60,3 +60,19 @@ hdfs-site.xml
 	<name>dfs.namenode.rpc-bind-host</name>
 	<value>0.0.0.0</value>
 </property>
+
+## 数据流
+
+客户端试图打开一个文件时，DistributedFileSystem 通过使用 RPC 来调用 namenode，以确定文件起始块的位置。对于每个块，namenode 返回存有该块副本的 datanode 地址。
+
+DistributedFileSystem 返回一个 FSDataInputStream 对象给客户端来读取数据，该对象管理着 datanode 和 namenode 的 I/O。
+
+接着，客户端对这个输入流调用 read()方法。存储着文件起始几个块的 datanode 地址的 DFSInputStream 随即连接距离最近的文件中第一个块所在的 datanode，并调用 read()读取数据，当读到块末端时，DFSInputStream 关闭与该 datanode 的连接，然后寻找下一个块的最佳 datanode。而对于客户来说，它只是在一直读取一个连续的流。
+
+## 文件写入
+
+客户端通过对 DistributedFileSystem 对象调用 create()来新建文件。DistributedFileSystem 对 namenode 发起 rpc 调用，在文件系统的命名空间中新建一个文件，此时文件中还没有相应数据块。如果成功，namenode 会为其创建一条记录，并返回一个 FSDataOutputStream 对象。此后，在客户端写入数据时，DFSOutputStream 将它分为一个个的数据包，并写入内部队列。同时 DFSOutputStream 也维护了一个内部数据包队列来等待 datanode 的确认回执。
+
+在一个块被写入期间可能会有多个 datanode 同时发生故障，但非常少见。只要写入了 dfs.namenode.replication.min 的副本数（默认为 1），写操作就成功了。这个块可以在集群中异步复制，直到达到目标副本数（dfs.replication，默认为 3）。
+
+客户端完成数据写入后，对数据流调用 close()方法。
