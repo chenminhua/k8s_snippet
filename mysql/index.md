@@ -134,5 +134,3 @@ mysql 中字符串和数字作比较的时候，会把字符串转为数字。
 ```
 select * from t sys.innodb_lock_waits where locked_table = 't'\G
 ```
-
-### 学会看慢查询日志

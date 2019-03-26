@@ -1,12 +1,21 @@
 # logstash
 
+logstash 需要有 input,output 和可选的 filter
+
+### quick start
+
+bin/logstash -e 'input{stdin{}}output{stdout{}}'
 bin/logstash -e 'input{stdin{}}output{stdout{codec=>rubydebug}}'
 
-## 配置语法
+### 数据解析
+
+Filebeat 客户端用于从文件中收集日志并传到 Logstash。默认和 logstash 一起安装。
+
+### 配置语法
 
 shipper, broker, indexer 三种角色
 
-## 区段 section
+### 区段 section
 
 input {
 stdin {}

@@ -9,4 +9,4 @@ az network public-ip create -g test -n test-ip1 --allocation-method Static
 
 az network nic create -g test --vnet-name testvnet -n test1-nic --subnet testsubnet --private-ip-address 10.0.1.10 --public-ip-address test-ip1
 
-az vm create -g test -n tv1 --size Standard_B1ms --image CentOS --nics test1-nic --admin-username azure --ssh-key-value ~/.ssh/ata.pub
+az vm create -g test -n tv1 --size Standard_B2ms --image CentOS --nics test1-nic --admin-username azure --ssh-key-value ~/.ssh/ata.pub

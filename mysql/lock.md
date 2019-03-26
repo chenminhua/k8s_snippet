@@ -87,8 +87,6 @@ innodb_lock_wait_timeout 用来控制阻塞等待的时间
 
 乐观锁与悲观锁
 
-意向锁
-
 latch: SHOW ENGINE INNODB MUTEX;
 
 ## 什么是一致性锁定读和一致性非锁定读
