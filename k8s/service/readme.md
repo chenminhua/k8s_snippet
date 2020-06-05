@@ -195,7 +195,8 @@ IPVS模式的工作原理，其实跟iptables模式类似。当我们创建了�
 
 在公有云提供的Kubernetes服务里，都使用了一个叫作CloudProvider的转接层，来跟公有云本身的 API进行对接。所以，在上述LoadBalancer类型的Service被提交后，Kubernetes就会调用CloudProvider在公有云上为你创建一个负载均衡服务，并且把被代理的Pod的IP地址配置给负载均衡服务做后端。
 
-而第三种方式，是Kubernetes在1.7之后支持的一个新特性，叫作ExternalName。举个例子：
+### ExternalName
+在1.7之后支持，举个例子：
 
     kind: Service
     apiVersion: v1
@@ -228,7 +229,7 @@ IPVS模式的工作原理，其实跟iptables模式类似。当我们创建了�
       - 80.11.12.10
 
 
-在上述Service中，我为它指定的externalIPs=80.11.12.10，那么此时，你就可以通过访问80.11.12.10:80访问到被代理的Pod了。不过，在这里Kubernetes要求externalIPs必须是至少能够路由到一个Kubernetes的节点。你可以想一想这是为什么。
+在上述Service中，我为它指定的externalIPs=80.11.12.10，那么此时，你就可以通过访问80.11.12.10:80访问到被代理的Pod了。不过，**在这里Kubernetes要求externalIPs必须是至少能够路由到一个Kubernetes的节点**。
 
 ## 常见问题
 实际上，在理解了Kubernetes Service机制的工作原理之后，很多与Service相关的问题，其实都可以通过分析Service在宿主机上对应的iptables规则（或者IPVS配置）得到解决。
